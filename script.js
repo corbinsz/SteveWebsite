@@ -248,13 +248,17 @@ document.addEventListener('DOMContentLoaded', () => {
    * Highlights the current page's nav link
    * by comparing the URL path.
    * ---------------------------------------- */
-  const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+  // Compare paths without .html so the Projects item stays active on detail pages.
+  const normalizePath = (pathname) =>
+    (pathname.replace(/\/$/, '') || '/').replace(/\.html$/, '') || '/';
+
+  const currentPath = normalizePath(window.location.pathname);
 
   document.querySelectorAll('.nav-links > a, .nav-links > .nav-dropdown > a').forEach(link => {
     const href = link.getAttribute('href');
     if (!href) return;
 
-    const linkPath = new URL(href, window.location.origin).pathname.replace(/\/$/, '') || '/';
+    const linkPath = normalizePath(new URL(href, window.location.origin).pathname);
     if (currentPath === linkPath || (linkPath !== '/' && currentPath.startsWith(linkPath))) {
       link.classList.add('active');
     }
