@@ -1346,6 +1346,10 @@ main {
   margin-top: 1rem;
 }
 
+.pdf-viewer-grid.single {
+  grid-template-columns: 1fr;
+}
+
 .pdf-viewer-card {
   background: var(--white);
   border: 1px solid var(--gray-200);
